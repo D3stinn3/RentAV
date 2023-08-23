@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from home.forms import homeUserForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 def homePage(request):
@@ -8,3 +11,45 @@ def homePage(request):
 def landingPage(request):
     context = {}
     return render(request, 'hometemp/base.html', context)
+
+def signupPage(request):
+    
+    if request.method == "POST":
+        form = homeUserForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Registration Successful")
+            return redirect('login')
+        else:
+            for msg in form._errors.values():
+                errmsg = f"{msg[0]}"
+                messages.error(request, errmsg)
+                
+    form = homeUserForm()
+    context = {'form': form}
+    return render(request, 'hometemp/signin.html', context)
+
+def loginPage(request):
+    
+    if request.method == "POST":
+        user = authenticate(
+            email = request.POST['email'],
+            password = request.POST['password']
+        )
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Login Successful")
+            return redirect('account')
+        
+    context = {}
+    return render(request, 'hometemp/login.html', context)
+
+def accountPage(request):
+    user = request.user
+    
+    context = {'user': user}
+    return render(request, 'hometemp/account.html', context)
+        
+            

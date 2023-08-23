@@ -139,3 +139,6 @@ INTERNAL_IPS = [
 
 # NPM path complete
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+# Auth User Models
+AUTH_USER_MODEL = 'home.User'
