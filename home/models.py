@@ -6,7 +6,13 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     name = models.CharField(max_length=100, null=True)
     email = models.EmailField(unique=True, null=True)
+    is_client = models.BooleanField('Is customer', default=False)
+    is_dealer = models.BooleanField('Is employee', default=False)
+    
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    
+    def __str__(self) -> str:
+        return self.name
     
