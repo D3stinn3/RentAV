@@ -60,4 +60,8 @@ def clientPage(request):
     user = request.user
     context = {'user': user}
     return render(request, 'hometemp/client.html', context)
-            
+
+def thePage(request):
+    user = request.user
+    context = {'user': user}
+    return render(request, 'hometemp/page.html', context)           
