@@ -38,18 +38,26 @@ def loginPage(request):
             password = request.POST['password']
         )
         
-        if user is not None:
+        if user is not None and user.is_client:
             login(request, user)
             messages.success(request, "Login Successful")
-            return redirect('account')
+            return redirect('client')
+        
+        elif user is not None and user.is_dealer:
+            login(request, user)
+            messages.success(request, "Login Successful")
+            return redirect('dealer')
         
     context = {}
     return render(request, 'hometemp/login.html', context)
 
-def accountPage(request):
+def dealerPage(request):
     user = request.user
-    
     context = {'user': user}
-    return render(request, 'hometemp/account.html', context)
-        
+    return render(request, 'hometemp/dealer.html', context)
+
+def clientPage(request):
+    user = request.user
+    context = {'user': user}
+    return render(request, 'hometemp/client.html', context)
             
