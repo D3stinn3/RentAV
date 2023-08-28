@@ -64,4 +64,8 @@ def clientPage(request):
 def thePage(request):
     user = request.user
     context = {'user': user}
-    return render(request, 'hometemp/page.html', context)           
+    return render(request, 'hometemp/page.html', context)
+
+def logoutPage(request):
+    logout(request)
+    return redirect('home')          
