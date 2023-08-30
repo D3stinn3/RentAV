@@ -8,16 +8,13 @@ class Area(models.Model):
     city = models.CharField(max_length=20)
     
     def __str__(self) -> str:
-        return self.areacode
+        return str(self.areacode)
     
 class CarDealer(models.Model):
     dealer = models.OneToOneField(User, on_delete=models.CASCADE)
     dealermobile = models.CharField(validators=[MinLengthValidator(10), MaxLengthValidator(13)], max_length=13)
     dealerarea = models.OneToOneField(Area, on_delete=models.PROTECT)
     dealerwallet = models.IntegerField(default=0)
-    
-    def __str__(self) -> str:
-        return self.dealer
     
 class Vehicles(models.Model):
     vehiclename = models.CharField(max_length=20)
@@ -33,4 +30,4 @@ class Vehicles(models.Model):
     vehiclelike = models.IntegerField(default=0)
     
     def __str__(self) -> str:
-        return self.vehiclename
+        return str(self.vehiclename)
